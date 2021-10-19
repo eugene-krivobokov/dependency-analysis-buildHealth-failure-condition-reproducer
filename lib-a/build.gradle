@@ -1,0 +1,35 @@
+plugins {
+    id 'java-library'
+    id 'kotlin'
+    id 'com.autonomousapps.dependency-analysis'
+}
+
+dependencyAnalysis {
+    issues {
+        onUnusedDependencies {
+            severity('fail')
+        }
+        onUsedTransitiveDependencies {
+            severity('ignore')
+        }
+        onIncorrectConfiguration {
+            severity('ignore')
+        }
+        onUnusedAnnotationProcessors {
+            severity('ignore')
+        }
+        onRedundantPlugins {
+            severity('ignore')
+        }
+        ignoreKtx(true)
+    }
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_7
+    targetCompatibility = JavaVersion.VERSION_1_7
+}
+
+dependencies {
+    implementation(project(":lib-b")) // not used
+}
